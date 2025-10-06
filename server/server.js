@@ -13,7 +13,9 @@ import connectDb from "./db/db.js";
 const app = express();
 app.set("trust proxy", 1);
 
-const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:3000")
+const allowedOrigins = (
+  process.env.CORS_ORIGIN || "https://password-generator-vault-six.vercel.app/"
+)
   .split(",")
   .map((o) => o.trim());
 
