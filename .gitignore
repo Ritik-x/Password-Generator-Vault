@@ -1,5 +1,17 @@
-node_modules/
-.env
+# dependencies
+node_modules
+
+# build outputs
+.next
+out
+dist
+
+# environment files
+.env.local
+.env.*.local
+
+# OS files
 .DS_Store
-dist/
-npm-debug.log
+
+# Logs
+*.log
