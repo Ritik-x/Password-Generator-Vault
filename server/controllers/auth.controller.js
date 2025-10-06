@@ -22,12 +22,17 @@ export const registerUser = async (req, res) => {
     }
 
     const token = jwt.sign({ id: user._id }, jwtsecret, { expiresIn: "7d" });
-    res.cookie("token", token, {});
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.status(201).json({
       message: "User registered successfully",
       user: {
-        id: user._id, // ❌ pehle _id likha tha
+        id: user._id,
         email: user.email,
       },
     });
@@ -42,7 +47,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if ((!email, !password)) {
+    if (!email || !password) {
       return res.status(400).json({ message: "enter password or email" });
     }
     const user = await User.findOne({ email });
@@ -56,6 +61,9 @@ export const loginUser = async (req, res) => {
       });
     }
     const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      return res.status(500).json({ message: "JWT secret not configured" });
+    }
 
     const token = jwt.sign({ id: user._id, email: user.email }, jwtSecret, {
       expiresIn: "7d",
@@ -64,6 +72,7 @@ export const loginUser = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.status(200).json({
       message: "user logged in successfully",
@@ -76,4 +85,13 @@ export const loginUser = async (req, res) => {
     console.error(error);
     return res.status(500).json({ message: "Something went wrong" });
   }
+};
+
+export const logoutUser = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+  });
+  return res.status(200).json({ message: "Logged out" });
 };

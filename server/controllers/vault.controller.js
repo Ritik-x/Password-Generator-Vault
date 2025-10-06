@@ -21,14 +21,14 @@ export const getVault = async (req, res) => {
   try {
     const items = await Vault.find({ user: req.user._id });
     res.json(items);
-  } catch (error) {
+  } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
 export const updateItem = async (req, res) => {
   try {
-    const item = await VaultItem.findOneAndUpdate(
+    const item = await Vault.findOneAndUpdate(
       { _id: req.params.id, user: req.user._id },
       req.body,
       { new: true }
@@ -42,7 +42,7 @@ export const updateItem = async (req, res) => {
 
 export const deleteItem = async (req, res) => {
   try {
-    const item = await VaultItem.findOneAndDelete({
+    const item = await Vault.findOneAndDelete({
       _id: req.params.id,
       user: req.user._id,
     });

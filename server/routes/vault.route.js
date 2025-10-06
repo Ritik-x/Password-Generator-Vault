@@ -13,6 +13,6 @@ const vrouter = express.Router();
 vrouter.post("/", authMiddleware, vaultLimiter, createVault);
 vrouter.get("/", authMiddleware, vaultLimiter, getVault);
 vrouter.put("/:id", authMiddleware, vaultLimiter, updateItem);
-vrouter.delete("/:id", authMiddleware, deleteItem);
+vrouter.delete("/:id", authMiddleware, vaultLimiter, deleteItem);
 
 export default vrouter;

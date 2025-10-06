@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const valutSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
     title: { type: String, required: true },
     username: String,
     password: String,
