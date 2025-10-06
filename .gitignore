@@ -15,3 +15,7 @@ dist
 
 # Logs
 *.log
+
+# Environment files
+.env
+server/.env
