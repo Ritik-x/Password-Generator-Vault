@@ -191,7 +191,7 @@ All protected endpoints require the `token` cookie (HTTP‑only) and use `creden
 - The database stores only encrypted payloads (ciphertext + iv + salt + iterations).
 - AES‑GCM provides integrity; tampering fails decryption.
 
-**Assignment:** Password Generator + Secure Vault (MVP)
+## **Assignment Details** Password Generator + Secure Vault (MVP)
 
 **Tech Stack Used**
 
