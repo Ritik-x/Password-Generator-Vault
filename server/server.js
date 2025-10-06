@@ -14,7 +14,7 @@ const app = express();
 app.set("trust proxy", 1);
 
 const allowedOrigins = (
-  process.env.CORS_ORIGIN || "https://password-generator-vault-six.vercel.app/"
+  process.env.CORS_ORIGIN || "https://password-generator-vault-six.vercel.app"
 )
   .split(",")
   .map((o) => o.trim());
